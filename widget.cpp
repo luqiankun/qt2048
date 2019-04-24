@@ -16,7 +16,7 @@ Widget::Widget(QWidget *parent) :
     this->SHOW();
     /* 设置对话框 */
     dialog =new Dialog(this);
-    dialog->setModal(true);
+    dialog->setModal(true);//模态窗口模式
     dialog->setWindowTitle("2048");
     dialog->hide();
     lab=new QLabel(dialog);
@@ -35,10 +35,12 @@ Widget::~Widget()
 
 void Widget::SHOW()
 {
+    //通过改变不同位置的样式表来显示不同的数字
     for (int i=0;i<4;i++) {
         for (int j=0;j<4;j++) {
             int x=i*4+j;
             QGraphicsView *p=nullptr;
+            //选择指针指向位置（第几行第几列）
             switch (x) {
             case 0: p=ui->p1;break;
             case 1: p=ui->p2;break;
@@ -58,6 +60,7 @@ void Widget::SHOW()
             case 15: p=ui->p16;break;
             default:break;
             }
+            //选择显示的数据
             switch(game.BoardList[i][j])
             {
             case 0:p->setStyleSheet("border-image:url(:/img/0.png)");break;
@@ -82,7 +85,7 @@ void Widget::JiXu()
 {
     game.Restart();
     this->SHOW();
-   this->SHOW();
+    this->SHOW();
 }
 void Widget::TuiChu()
 {
@@ -91,7 +94,7 @@ void Widget::TuiChu()
 
 void Widget::keyPressEvent(QKeyEvent *event)
 {
-
+    //根据按键执行相应的函数
     if(event->key()==Qt::Key_Escape)
     {
         this->close();
